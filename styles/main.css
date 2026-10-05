@@ -116,8 +116,14 @@ section, .footer-layout {
     url('../assets/img/hero-lamp-menu-boards.webp');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll; /* Fix iOS mobile bug */
   color: var(--color-paper);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-section {
+    background-attachment: fixed; /* Re-enable parallax on desktop */
+  }
 }
 
 .hero-lead {
