@@ -1,0 +1,47 @@
+:root {
+  /* Colors */
+  --color-paper: #EAE0D3;
+  --color-latte: #D2BFA8;
+  --color-mocha: #6F4B3A;
+  --color-espresso: #3B241A;
+  --color-roast: #1E130E;
+  --color-caramel: #D49A3A;
+  --color-leaf: #6B7A4F;
+
+  /* Typography */
+  --font-display: "Caprasimo", "Cooper Black", Georgia, serif;
+  --font-text: "Nunito", ui-rounded, system-ui, sans-serif;
+
+  /* Type scale */
+  --step--1: 0.875rem;
+  --step-0: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.75rem, 1.5rem + 1.2vw, 2.375rem);
+  --step-4: clamp(2.5rem, 1.6rem + 4.2vw, 5rem);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --space-9: 112px;
+  --space-section-y: clamp(4.5rem, 10vw, 7rem);
+
+  /* Radius */
+  --radius-arch: 999px 999px 2rem 2rem;
+  --radius-photo: 1.5rem;
+  --radius-control: 999px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 900ms;
+  --ease-default: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --reveal-distance: 16px;
+  --reveal-duration: 600ms;
+  --reveal-step: 80ms;
+}
