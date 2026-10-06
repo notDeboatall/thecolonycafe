@@ -3,13 +3,13 @@ const CAFE = {
     timezone: 'Asia/Kolkata',
     // 0 = Sunday, 1 = Monday, ... 6 = Saturday
     hours: {
-        0: { open: '10:00', close: '00:00' },
-        1: { open: '10:00', close: '00:00' },
-        2: { open: '10:00', close: '00:00' },
-        3: { open: '10:00', close: '00:00' },
-        4: { open: '10:00', close: '00:00' },
-        5: { open: '10:00', close: '00:00' },
-        6: { open: '10:00', close: '00:00' }
+        0: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        1: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        2: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        3: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        4: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        5: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }],
+        6: [{ open: '10:00', close: '14:00' }, { open: '16:00', close: '23:00' }]
     }
 };
 
@@ -53,36 +53,22 @@ function updateStatusBadge() {
         let status = 'closed';
         let text = 'Closed right now';
         
-        const hoursToday = CAFE.hours[currentDayIndex];
-        const hoursYesterday = CAFE.hours[(currentDayIndex + 6) % 7];
+        const shiftsToday = CAFE.hours[currentDayIndex];
         
-        // Late night closing from yesterday
-        if (hoursYesterday && hoursYesterday.close && hoursYesterday.open) {
-            if (hoursYesterday.close < hoursYesterday.open) {
-                if (currentTimeStr < hoursYesterday.close) {
-                    status = 'open';
-                    text = `Open until ${formatTime(hoursYesterday.close)}`;
-                }
+        for (const shift of shiftsToday) {
+            if (currentTimeStr >= shift.open && currentTimeStr < shift.close) {
+                status = 'open';
+                text = `Open until ${formatTime(shift.close)}`;
+                break;
+            } else if (status === 'closed' && currentTimeStr < shift.open) {
+                text = `Opens at ${formatTime(shift.open)}`;
+                break;
             }
         }
         
-        // Today's hours
-        if (status === 'closed' && hoursToday && hoursToday.open && hoursToday.close) {
-            if (hoursToday.close > hoursToday.open) {
-                if (currentTimeStr >= hoursToday.open && currentTimeStr < hoursToday.close) {
-                    status = 'open';
-                    text = `Open until ${formatTime(hoursToday.close)}`;
-                } else if (currentTimeStr < hoursToday.open) {
-                    text = `Opens at ${formatTime(hoursToday.open)}`;
-                }
-            } else {
-                if (currentTimeStr >= hoursToday.open) {
-                    status = 'open';
-                    text = `Open until ${formatTime(hoursToday.close)}`;
-                } else if (currentTimeStr > hoursYesterday.close && currentTimeStr < hoursToday.open) {
-                     text = `Opens at ${formatTime(hoursToday.open)}`;
-                }
-            }
+        if (status === 'closed' && currentTimeStr >= shiftsToday[shiftsToday.length - 1].close) {
+            const shiftsTomorrow = CAFE.hours[(currentDayIndex + 1) % 7];
+            text = `Opens tomorrow at ${formatTime(shiftsTomorrow[0].open)}`;
         }
 
         badgeContainer.innerHTML = `<span class="badge"><span class="badge-dot ${status}"></span>${text}</span>`;
