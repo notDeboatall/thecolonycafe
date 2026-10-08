@@ -364,9 +364,9 @@ section, .footer-layout {
 }
 
 .menu-marquee {
-  width: auto;
-  margin-left: calc(max(5vw, calc((100% - 72rem) / 2)) * -1);
-  margin-right: calc(max(5vw, calc((100% - 72rem) / 2)) * -1);
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   overflow: hidden;
   margin-bottom: var(--space-7);
 }
