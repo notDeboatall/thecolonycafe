@@ -8,7 +8,6 @@
 }
 
 body {
-  overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   background-color: var(--color-paper);
